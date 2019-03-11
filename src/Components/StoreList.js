@@ -8,7 +8,7 @@ export const StoreList = ({ animals, addToCart }) => (
             justifyContent: 'flex-start',
             flexWrap: 'wrap',
         }}>
-            {animals.map((animal) => (
+            {animals.map(({animal, price, img}) => (
                 <li style={{
                     border: 'solid black 1px',
                     justifyContent: 'flex-start',
@@ -20,10 +20,11 @@ export const StoreList = ({ animals, addToCart }) => (
                     justifyContent: 'space-between',
                     margin: '10px',
                     textAlign:'center',
+                    backgroundColor: 'tan'
                 }}
                 >
-                    {animal}
-                    <button onClick={addToCart(animal)} >add to list</button>
+                    {[animal, img]} <br /> <hr /> {price}
+                    <button onClick={addToCart(animal, price)} >add to list</button>
                 </li>
             ))}
         </ul>

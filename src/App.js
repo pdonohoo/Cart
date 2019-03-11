@@ -4,20 +4,57 @@ import { Cart } from './Components/Cart.js'
 import { StoreList } from './Components/StoreList.js'
 
 
-const animals = ['dog', 'cat', 'hamster', 'bird', 'Frog', 'Turtle', 'Bunny', 'Monkey']
+const animals = [
+  {
+    animal: 'Dog',
+    price: '$100',
+  },
+  {
+    animal: 'Cat',
+    price: '$-500'
+  },
+  {
+    animal: 'Hamster',
+    price: '$35'
+  },
+  {
+    animal: 'Bird',
+    price: '$20'
+  },
+  {
+    animal: 'Frog',
+    price: '$20'
+  },
+  {
+    animal: 'Turtle',
+    price: '$50'
+  },
+  {
+    animal: 'Bunny',
+    price: '$35'
+  },
+  {
+    animal: 'Monkey',
+    price: '$1000'
+  }
+]
+
+
 
 class App extends Component {
 
   state = {
-    cart: []
+    cart: [],
+    quantity: '0',
   }
 
   addToCart = (animal) => () => {
     localStorage.setItem('cart', JSON.stringify(cart));
     const cart = [...this.state.cart, animal];
     this.setState({
-      cart
-    })
+      cart: cart,
+      // quantity: (this.state.quantity += '1')
+    }) 
   }
 
   removeFromCart = (index) => () => {
@@ -43,7 +80,7 @@ class App extends Component {
          <StoreList animals={animals} addToCart={this.addToCart} />
         </div>
         <div >
-          <Cart cartItems={this.state.cart} removeFromCart={this.removeFromCart} />
+          <Cart quantity={this.state.quantity} cartItems={this.state.cart} removeFromCart={this.removeFromCart} />
         </div>
         
       </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Cart = ({cartItems, removeFromCart}) => (
+export const Cart = ({cartItems, removeFromCart, quantity}) => (
     <div >
         <h4>Cart</h4>
     <ul style={{
@@ -10,14 +10,12 @@ export const Cart = ({cartItems, removeFromCart}) => (
         
     }}>
     {cartItems.map((cartItem, index) => 
-        <li style={{border:'solid black 1px',
+        <li style={{
         width:'100px',
         height:'100px',
         margin: '10px',
         display:'flex',
         flexDirection:'column',
-        justifyContent:'space-between',
-        textAlign:'center',
       listStyle:'none'}} onClick={removeFromCart(index)}>
             {cartItem}
         </li>
