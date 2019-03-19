@@ -1,33 +1,16 @@
-export const getItems = (calback) => callback[
-  {
-    animal: 'dog',
-    price: '$100'
-  },
-  {
-    animal: 'cat',
-    price: '$-500'
-  },
-  {
-    animal: 'hamster',
-    price: '$35'
-  },
-  {
-    animal: 'bird',
-    price: '$20'
-  },
-  {
-    animal: 'Frog',
-    price: '$20'
-  },
-  {
-    animal: 'Turtle',
-    price: '$50'
-  },
-  {
-    animal: 'Bunny',
-    price: '$35'
-  },
-  {
-    animal: 'Monkey',
-    price: '$1000'
-  }]
+export const getItems = () => new Promise ((resolve, reject) => {
+  fetch('http://localhost:5000/items')
+  .then(response => {
+    resolve(response.json())
+  }).catch(reject)
+});
+
+export const getCart = () => new Promise ((resolve, reject) => {
+  fetch('http://localhost:5000/cart')
+  .then(response => {
+    resolve(response.json())
+    console.log(response)
+  }).catch(reject)
+})
+
+ 

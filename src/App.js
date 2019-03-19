@@ -1,88 +1,75 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Cart } from './Components/Cart.js'
-import { StoreList } from './Components/StoreList.js'
-
-
-const animals = [
-  {
-    animal: 'Dog',
-    price: '$100',
-  },
-  {
-    animal: 'Cat',
-    price: '$-500'
-  },
-  {
-    animal: 'Hamster',
-    price: '$35'
-  },
-  {
-    animal: 'Bird',
-    price: '$20'
-  },
-  {
-    animal: 'Frog',
-    price: '$20'
-  },
-  {
-    animal: 'Turtle',
-    price: '$50'
-  },
-  {
-    animal: 'Bunny',
-    price: '$35'
-  },
-  {
-    animal: 'Monkey',
-    price: '$1000'
-  }
-]
-
+import { Store } from './Components/StoreList';
+import { Cart } from './Components/Cart';
+import { getItems, getCart } from './data/Items';
 
 
 class App extends Component {
 
   state = {
+    items: [],
     cart: [],
-    quantity: '0',
+    quantity: '',
   }
 
-  addToCart = (animal) => () => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-    const cart = [...this.state.cart, animal];
-    this.setState({
-      cart: cart,
-      // quantity: (this.state.quantity += '1')
-    }) 
+  addToCart = (item, price) => () => {
+      const cart = [...this.state.cart, [item, price] ]
+      return fetch('http://localhost:5000/cart', {
+        method: 'Post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(item, price)
+    }),
+      this.setState({
+        cart
+      })
   }
 
   removeFromCart = (index) => () => {
-    this.state.cart.splice(index, 1);
-    localStorage.setItem('cart', JSON.stringify(this.state.cart))
+    this.state.cart.splice(index, 1)
     this.setState({
       cart: this.state.cart
     })
   }
 
-  componentDidMount() {
-    const cartJSON = localStorage.getItem('cart');
-    const cart = JSON.parse(cartJSON);
-    this.setState({
-      cart: cart || []
-    })
+  componentDidMount(){
+    getItems()
+      .then(items => this.setState({
+        items
+      }))
+
+      getCart()
+      .then(cart => this.setState({
+        key: cart,
+        
+      }))
   }
 
   render() {
+
     return (
-      <div >
-       <div >
-         <StoreList animals={animals} addToCart={this.addToCart} />
+      <div style={{
+        backgroundColor: 'gray',
+        height: '1000px',
+
+      }}>
+        <header style={{
+          textAlign: 'center',
+        }}>
+          <h1>The Dreamer Store</h1>
+        </header>
+        <div style={{ display: 'flex' }}>
+          <div>
+            <Store storeItems={this.state.items} addToCart={this.addToCart} />
+          </div>
+          <div style={{  padding: 5, }}>
+            <h3>Cart</h3>
+            <Cart cartItems={this.state.cart} removeFromCart={this.removeFromCart} />
+
+          </div>
         </div>
-        <div >
-          <Cart quantity={this.state.quantity} cartItems={this.state.cart} removeFromCart={this.removeFromCart} />
-        </div>
-        
       </div>
     );
   }

@@ -1,32 +1,41 @@
 import React from 'react'
+// import { storeItems } from '../data/Items'
 
-export const StoreList = ({ animals, addToCart }) => (
-    <div>
-        <h4>Store</h4>
-        <ul style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            flexWrap: 'wrap',
+export const Store = ({storeItems, addToCart}) => (
+  <div>
+    <ul style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      
+      
+    }}>
+      {storeItems.map(({item, price, photo}) => (
+        <li  style={{
+          border: 'solid black 1px',
+          height: '150px',
+          width: '150px',
+          textAlign: 'center',
+          listStyle: 'none',
+          flexDirection: 'column',
+          backgroundColor:'#d3d3d3',
+          margin: '20px',
+                            
         }}>
-            {animals.map(({animal, price, img}) => (
-                <li style={{
-                    border: 'solid black 1px',
-                    justifyContent: 'flex-start',
-                    width: '100px',
-                    height: '100px',
-                    listStyle: 'none',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    margin: '10px',
-                    textAlign:'center',
-                    backgroundColor: 'tan'
-                }}
-                >
-                    {[animal, img]} <br /> <hr /> {price}
-                    <button onClick={addToCart(animal, price)} >add to list</button>
-                </li>
-            ))}
-        </ul>
-    </div>
+        <div>
+          <div style={{textDecoration:'underline'}}>
+          {item}          
+          </div>
+          <div>
+          <img style={{width:150, height: 90}} src={photo} />
+          </div>
+          <div>
+          {price}
+          </div>          
+        </div>
+         
+          <button onClick={addToCart(item, price, photo)}>Add to list</button>
+        </li>
+      ))}
+    </ul>
+  </div>
 )
