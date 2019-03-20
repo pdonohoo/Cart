@@ -13,14 +13,20 @@ class App extends Component {
     quantity: '',
   }
 
+
   addToCart = (item, price) => () => {
-      const cart = [...this.state.cart, [item, price] ]
-      return fetch('http://localhost:5000/cart', {
-        method: 'Post',
+    console.log("adding one to the cart: ", item, price)
+    const cart = [...this.state.cart, [item, price]]
+    return fetch('http://localhost:5000/cart', {
+      method: 'Post',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(item, price)
+      }, 
+      body: JSON.stringify({
+        item: item,
+        price: price,
+        photo: 'https://www.l-nutra.com/wp-content/uploads/2018/07/placeholder.png' 
+      })
     }),
       this.setState({
         cart
@@ -42,7 +48,7 @@ class App extends Component {
 
       getCart()
       .then(cart => this.setState({
-        key: cart,
+        key: cart.id
         
       }))
   }
