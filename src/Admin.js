@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
-export default class Admin extends Component{
+export default class Admin extends Component {
 
   state = {
     itemInput: '',
@@ -22,7 +22,7 @@ export default class Admin extends Component{
         'Content-Type': 'application/json'
       },
     })
-    .then(response => response.json())
+      .then(response => response.json())
       .then(response => {
         this.setState({
           items: response
@@ -48,13 +48,15 @@ export default class Admin extends Component{
 
   render() {
     return (
-      <form onSubmit={this.addItemToServer} >
+      <div style={{textAlign:'center', }} >
+        <form onSubmit={this.addItemToServer} >
           <input onChange={this.itemName} placeholder='Enter item name'></input>
           <input onChange={this.itemPrice} placeholder='Enter item price'></input>
-          <input onChange={this.imageUrl} placeholder='Enter image url'></input>
+          <input onChange={this.imageUrl} placeholder='Enter image url'></input> <br />
           <button>Add to item list</button>
         </form>
-    
+      </div>
+
     )
   }
 }

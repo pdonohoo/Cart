@@ -8,13 +8,13 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <Router>
-          <ul style={{listStyleType:'none', display:'flex', }}>
-            <li>
+          <ul style={{listStyleType:'none', display:'flex', margin: 0}}>
+            <li style={{marginRight: 5}}>
               <Link to="/">Home</Link>
             </li>
-            <li>
+            <li style={{marginRight: 5}}>
               <Link to="/Admin">Admin</Link>
             </li>
           </ul>
@@ -22,12 +22,6 @@ class App extends Component {
           <Route exact path="/" exact component={MainStore} />
           <Route path="/Admin" exact component={Admin} />
         </Router>
-
-        
-        
-        
-
-       
       </div>
     );
   }

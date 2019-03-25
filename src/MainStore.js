@@ -82,7 +82,8 @@ class MainStore extends Component {
       <div style={{
         backgroundColor: 'gray',
         height: '1000px',
-        alignContent: 'center'
+        alignContent: 'center',
+        margin: 0,
       }}>
         
 
@@ -99,7 +100,7 @@ class MainStore extends Component {
           <div>
             <Store storeItems={this.state.items} addToCart={this.addToCart} />
           </div>
-          <div style={{ padding: 5, }}>
+          <div style={{ padding: 5, textAlign:'center' }}>
             <h3>Cart</h3>
             <Cart cartItems={this.state.cart} removeFromCart={this.removeFromCart} />
 
