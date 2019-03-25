@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Store } from './Components/StoreList';
-import { Cart } from './Components/Cart';
 import { getItems, getCart } from './data/Items';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Admin from './Admin'
+import MainStore from './MainStore'
 
 class App extends Component {
 
@@ -84,7 +83,7 @@ class App extends Component {
         height: '1000px',
         alignContent: 'center'
       }}>
-        {/* <Router>
+        <Router>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -96,29 +95,13 @@ class App extends Component {
 
           <Route exact path="/" exact component={MainStore} />
           <Route path="/Admin" exact component={Admin} />
-        </Router> */}
+        </Router>
 
-        <header style={{
-          textAlign: 'center',
-        }}>
-          <h1>The Dreamer Store</h1>
-        </header>
         
-        <div>
-          <div>
-            
-          </div>
-          <div>
-            <Store storeItems={this.state.items} addToCart={this.addToCart} />
-          </div>
-          <div style={{ padding: 5, }}>
-            <h3>Cart</h3>
-            <Cart cartItems={this.state.cart} removeFromCart={this.removeFromCart} />
+        
+        
 
-          </div>
-
-
-        </div>
+       
       </div>
     );
   }
