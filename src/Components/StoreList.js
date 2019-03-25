@@ -9,7 +9,7 @@ export const Store = ({storeItems, addToCart}) => (
       
       
     }}>
-      {storeItems.map(({item, price, photo}) => (
+      {storeItems.map(({item, price, photo, id}) => (
         <li  style={{
           border: 'solid black 1px',
           height: '150px',
@@ -33,7 +33,7 @@ export const Store = ({storeItems, addToCart}) => (
           </div>          
         </div>
          
-          <button onClick={addToCart(item, price, photo)}>Add to list</button>
+          <button onClick={addToCart(item, price, photo, id)}>Add to list</button>
         </li>
       ))}
     </ul>

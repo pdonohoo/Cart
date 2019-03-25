@@ -3,10 +3,10 @@ import './App.css';
 import { Store } from './Components/StoreList';
 import { Cart } from './Components/Cart';
 import { getItems, getCart } from './data/Items';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Admin from './Admin'
 
-class App extends Component {
+
+
+class MainStore extends Component {
 
   state = {
     items: [],
@@ -84,19 +84,7 @@ class App extends Component {
         height: '1000px',
         alignContent: 'center'
       }}>
-        {/* <Router>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/Admin">Admin</Link>
-            </li>
-          </ul>
-
-          <Route exact path="/" exact component={MainStore} />
-          <Route path="/Admin" exact component={Admin} />
-        </Router> */}
+        
 
         <header style={{
           textAlign: 'center',
@@ -124,4 +112,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default MainStore;
