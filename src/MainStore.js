@@ -26,7 +26,7 @@ class MainStore extends Component {
         id: id,
         item: item,
         price: price,
-        photo: 'https://www.l-nutra.com/wp-content/uploads/2018/07/placeholder.png'
+        photo: photo
       })
     })
       .then(response => response.json())
@@ -56,7 +56,7 @@ class MainStore extends Component {
       })
   }
 
-  componentDidMount() {
+  componentDidMount() { 
     getItems()
       .then(items => {
         console.log('Itesm from BE: ', items)

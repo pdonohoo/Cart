@@ -17,8 +17,13 @@ export const Cart = ({ cartItems, removeFromCart }) => (
           margin: '20px',
                             
         }} onClick={removeFromCart(cartItem.id)}>
+
+          <div>
           {cartItem.item}
+          <img style={{width:150, height: 90}} src={cartItem.photo} />
           {cartItem.price}
+          </div>
+          
                    
         </li>
       ))}

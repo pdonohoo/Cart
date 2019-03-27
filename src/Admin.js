@@ -11,6 +11,7 @@ export default class Admin extends Component {
   addItemToServer = (e) => {
     e.preventDefault();
     let item = {
+      id: Math.random(),
       name: this.state.itemInput,
       price: this.state.itemPriceInput,
       image: this.state.itemImageUrl,
@@ -20,7 +21,13 @@ export default class Admin extends Component {
       method: 'Post',
       headers: {
         'Content-Type': 'application/json'
-      },
+      }, 
+      body: JSON.stringify({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        photo: item.image,
+      })
     })
       .then(response => response.json())
       .then(response => {
@@ -28,7 +35,7 @@ export default class Admin extends Component {
           items: response
         })
       })
-  }
+  } 
 
   itemName = (e) => {
     this.setState({
@@ -48,13 +55,23 @@ export default class Admin extends Component {
 
   render() {
     return (
-      <div style={{textAlign:'center', }} >
-        <form onSubmit={this.addItemToServer} >
-          <input onChange={this.itemName} placeholder='Enter item name'></input>
-          <input onChange={this.itemPrice} placeholder='Enter item price'></input>
-          <input onChange={this.imageUrl} placeholder='Enter image url'></input> <br />
-          <button>Add to item list</button>
-        </form>
+      <div style={{ textAlign: 'center' }} >
+
+        <div style={{ display: 'flex', justifyContent:'space-between', marginTop: 50, marginLeft: 50 }}>
+          <form style={{ width: 300, pading: 10, }} onSubmit={this.addItemToServer} >
+            <div>Item name:</div>
+            <input style={{ width: 300 }} onChange={this.itemName} placeholder='Enter item name'></input>
+            <div>Price:</div>
+            <input style={{ width: 300 }} onChange={this.itemPrice} placeholder='Enter item price'></input>
+            <div>Image:</div>
+            <input style={{ width: 300 }} onChange={this.imageUrl} placeholder='Enter image url'></input> <br />
+            <button onClick={this.addItemToServer}>Add to item list</button>
+          </form>
+          <div style={{marginRight: 50}}>
+            test
+          </div>
+        </div>
+
       </div>
 
     )
