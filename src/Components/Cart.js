@@ -2,7 +2,10 @@ import React from 'react'
 
 export const Cart = ({ cartItems, removeFromCart }) => (
   <div >
-    <ul >
+    <ul style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+    }}>
       {cartItems.map(({ ...cartItem }, id) => (
         <li style={{
           display:'flex',

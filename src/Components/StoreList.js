@@ -6,10 +6,8 @@ export const Store = ({storeItems, addToCart}) => (
     <ul style={{
       display: 'flex',
       flexWrap: 'wrap',
-      
-      
     }}>
-      {storeItems.map(({item, price, photo, id}) => (
+      {storeItems.map(({name, price, image, id}) => (
         <li  style={{
           border: 'solid black 1px',
           height: '150px',
@@ -23,17 +21,17 @@ export const Store = ({storeItems, addToCart}) => (
         }}>
         <div>
           <div style={{textDecoration:'underline'}}>
-          {item}          
+          {name}          
           </div>
           <div>
-          <img style={{width:150, height: 90}} src={photo} />
+          <img style={{width:150, height: 90}} src={image} />
           </div>
           <div>
           {price}
           </div>          
         </div>
          
-          <button onClick={addToCart(item, price, photo, id)}>Add to list</button>
+          <button onClick={addToCart(name, price, image, id)}>Add to list</button>
         </li>
       ))}
     </ul>

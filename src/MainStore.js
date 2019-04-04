@@ -12,9 +12,9 @@ class MainStore extends Component {
     items: [],
     cart: [],
   }
+ 
 
-
-  addToCart = (item, price, photo, id) => () => {
+  addToCart = (name, price, image, id) => () => {
     console.log("adding one to the cart: ", id)
     // const cart = [...this.state.cart, {item, price}]
     return fetch('http://localhost:5000/cart', {
@@ -24,17 +24,19 @@ class MainStore extends Component {
       },
       body: JSON.stringify({
         id: id,
-        item: item,
+        item: name,
         price: price,
-        photo: photo
+        photo: image
       })
     })
       .then(response => response.json())
       .then(response => {
+        console.log(response)
         this.setState({
           cart: response
         })
       })
+      
 
   }
 
@@ -66,10 +68,12 @@ class MainStore extends Component {
       })
 
     getCart()
-      .then(cart => this.setState({
+      .then(cart => {
+        console.log('cart items', cart)
+        this.setState({
         cart
-      }))
-
+      })
+    })
   }
 
   
@@ -81,7 +85,7 @@ class MainStore extends Component {
     return (
       <div style={{
         backgroundColor: 'gray',
-        height: '1000px',
+        height: 'relative',
         alignContent: 'center',
         margin: 0,
       }}>
