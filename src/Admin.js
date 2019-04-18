@@ -8,12 +8,13 @@ export default class Admin extends Component {
     itemName: '',
     itemPriceInput: '',
     itemImageUrl: '',
+    
   }
 
   addItemToServer = (e) => {
     e.preventDefault();
     let item = {
-      id: Math.random(),
+      id: Math.random().toString(),
       name: this.state.itemName,
       price: this.state.itemPriceInput,
       image: this.state.itemImageUrl,
@@ -34,14 +35,17 @@ export default class Admin extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({
-          items: response
+          items: [...this.state.items, response],
+          itemName: '',
+          itemPriceInput: '',
+          itemImageUrl: '',
         })
       })
   }
 
   itemName = (e) => {
     this.setState({
-      itemInput: e.target.value
+      itemName: e.target.value
     })
   }
   itemPrice = (e) => {
@@ -62,11 +66,26 @@ export default class Admin extends Component {
       .then(response => {
         console.log(response)
         this.setState({
-          itemInput: response.name,
+          itemName: response.name,
           itemPriceInput: response.price,
           itemImageUrl: response.image,
         }) 
       })
+  }
+
+  deleteItem = (id) => () => {
+    return fetch(`http://localhost:5000/items/${id}`, {
+      method: 'Delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(() => getItems()
+    .then(response => {
+      this.setState({
+        items: response
+      })
+    }))
   }
 
   componentDidMount() {
@@ -85,19 +104,20 @@ export default class Admin extends Component {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 50, marginLeft: 50 }}>
           <form style={{ width: 300, pading: 10, }} onSubmit={this.addItemToServer} >
             <div>Item name:</div>
-            <input value={this.state.itemInput} style={{ width: 300 }} onChange={this.itemName} placeholder='Enter item name'></input>
+            <input value={this.state.itemName} style={{ width: 300 }} onChange={this.itemName} placeholder='Enter item name'></input>
             <div>Price:</div>
             <input value={this.state.itemPriceInput} style={{ width: 300 }} onChange={this.itemPrice} placeholder='Enter item price'></input>
             <div>Image:</div>
             <input  value={this.state.itemImageUrl} style={{ width: 300 }} onChange={this.imageUrl}  placeholder='Enter image url'></input> <br />
-            <button>Add to item list</button>
+            <button>Add to item list / Update item</button>
           </form>
           <div>
             <ul> 
               {this.state.items.map(({name, price, image, id}) => (
                 <li style={{padding: 10, marginRight: 50,}}>
-                  Name: {name} <br /> Price: {price}
-                  <button onClick={this.editItem(id, name, price, image)} >Edit</button>
+                  Name: {name} <br /> Price: {price} 
+                  <button onClick={this.editItem(id)} >Edit</button>
+                  <button onClick={this.deleteItem(id)}>Remove Item</button>
                 </li>
               )
               )}

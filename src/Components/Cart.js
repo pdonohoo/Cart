@@ -6,12 +6,12 @@ export const Cart = ({ cartItems, removeFromCart }) => (
       display: 'flex',
       flexWrap: 'wrap',
     }}>
-      {cartItems.map(({ ...cartItem }, id) => (
+      {cartItems.map(({...cartItem }) => (
         <li style={{
           display:'flex',
           flexDirection:'wrap',
           border: 'solid black 1px',
-          height: '150px',
+          height: 'relative',
           width: '150px',
           textAlign: 'center',
           listStyle: 'none',
