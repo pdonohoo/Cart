@@ -19,7 +19,7 @@ export const Cart = ({ cartItems, removeFromCart }) => (
           backgroundColor:'#d3d3d3',
           margin: '20px',
                             
-        }} onClick={removeFromCart(cartItem.id)}>
+        }} onClick={removeFromCart(cartItem._id)}>
 
           <div>
           {cartItem.item}

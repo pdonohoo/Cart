@@ -28,17 +28,19 @@ class MainStore extends Component {
         photo: image
       })
     })
-      .then(response => response.json())
+      // .then(response => response.json())
+      .then(() => getCart())
       .then(response => {
         console.log(response)
         this.setState({
-          cart: [...this.state.cart, response]
+          // cart: [...this.state.cart, response]
+          cart: response
         })
       })
   }
 
-  removeFromCart = (id) => () => {
-    return fetch(`http://localhost:5000/cart/${id}`, {
+  removeFromCart = (_id) => () => {
+    return fetch(`http://localhost:5000/cart/${_id}`, {
       method: 'Delete',
       headers: {
         'Content-Type': 'application/json'

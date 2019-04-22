@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import {getItems} from './data/Items'
+import {Redirect} from 'react-router-dom'
 
 export default class Admin extends Component {
 
   state = {
     items: [],
+    itemId: '',
     itemName: '',
     itemPriceInput: '',
     itemImageUrl: '',
+    loading: true,
+    user: '',
     
   }
 
@@ -66,6 +70,7 @@ export default class Admin extends Component {
       .then(response => {
         console.log(response)
         this.setState({
+          itemId: response.id,
           itemName: response.name,
           itemPriceInput: response.price,
           itemImageUrl: response.image,
@@ -88,7 +93,20 @@ export default class Admin extends Component {
     }))
   }
 
+  signOut= () => {
+    localStorage.removeItem('user')
+    this.setState({
+      user: ''
+    })
+  }
+
   componentDidMount() {
+    let user = JSON.parse(localStorage.getItem('user'))
+    this.setState({
+      user: user,
+      loading: false,
+    })
+
     getItems()
       .then(items => {
         this.setState({
@@ -99,10 +117,20 @@ export default class Admin extends Component {
 
   render() {
     return (
+      !this.state.user && !this.state.loading
+      ?
+      <Redirect to='/login'/>
+      :
+
       <div style={{ textAlign: 'center' }}>
+
+      <button onClick={this.signOut}>Sign Out</button>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 50, marginLeft: 50 }}>
           <form style={{ width: 300, pading: 10, }} onSubmit={this.addItemToServer} >
+            <div>
+              Item id: {this.state.itemId}
+            </div>
             <div>Item name:</div>
             <input value={this.state.itemName} style={{ width: 300 }} onChange={this.itemName} placeholder='Enter item name'></input>
             <div>Price:</div>
@@ -123,6 +151,7 @@ export default class Admin extends Component {
               )}
             </ul>
           </div>
+
         </div>
 
       </div>

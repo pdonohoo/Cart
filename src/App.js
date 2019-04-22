@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import Admin from './Admin';
 import MainStore from './MainStore';
+import Login from './Components/Login';
 import Users from './Components/Users';
+
 
 class App extends Component {
 
@@ -26,6 +28,7 @@ class App extends Component {
           <Route exact path="/" exact component={MainStore} />
           <Route path="/Admin" component={Admin} />
           <Route path="/Users" component={Users}/>
+          <Route path="/Login" component={Login}/>
         </Router>
       </div>
     );
